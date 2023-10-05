@@ -1,10 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const studentsForm = ({loading,setloading,visible,set}) => {
-    const [name, setname] = useState(loading.name||'');
-  const [lastname, setlastname] = useState(loading.lastName||'');
-  const [IDnumber, setIDnumber] = useState(loading.IDnumber||'');
+const studentsForm = ({loading,setloading,visible,setVisible}) => {
+ 
+const [name, setname] = useState(loading.name||'');
+const [lastname, setlastname] = useState(loading.lastName||'');
+const [IDnumber, setIDnumber] = useState(loading.IDnumber||'');
+  const reset=()=>{
+    setloading('')
+    setname('')
+    setlastname('')
+    setIDnumber('')
+  }
+
+  useEffect(() => {
+    visible==='student'?(reset('')):null
+    
+  }, [visible])
   async function createStudent(event) {
     event.preventDefault();
     const formData = {
@@ -17,10 +30,7 @@ const studentsForm = ({loading,setloading,visible,set}) => {
       method: "POST",
       body: JSON.stringify(formData),
     });
-  setloading('')
-  setname('')
-  setlastname('')
-  setIDnumber('')
+reset()
     switch (response.status) {
         case 201:
           alert(`ESTUDIANTE CREADO CON EXITO`)
@@ -33,7 +43,9 @@ const studentsForm = ({loading,setloading,visible,set}) => {
           alert(`ERROR EN EL SERVER`)
           break;
       }
+      setVisible('Home')
     }
+
   async function editStudent(event) {
     event.preventDefault();
     const formData = {
@@ -46,10 +58,7 @@ const studentsForm = ({loading,setloading,visible,set}) => {
       method: "PATCH",
       body: JSON.stringify(formData),
     });
-  setloading('')
-  setname('')
-  setlastname('')
-  setIDnumber('')
+ reset()
     switch (response.status) {
         case 200:
           alert(`${response.status} ESTUDIANTE ACTUALIZADO CON EXITO`)
@@ -62,6 +71,7 @@ const studentsForm = ({loading,setloading,visible,set}) => {
           alert(`${response.status} ERROR EN EL SERVER`)
           break;
       }
+      setVisible('Home')
 
   }
 
@@ -77,7 +87,7 @@ const studentsForm = ({loading,setloading,visible,set}) => {
     <div>
       <form onSubmit={(e)=>{visible==='student'? createStudent(e):editStudent(e)}}>
         <div >
-        <h2>{visible==='studente'?'Create student':'Edit student'}</h2>
+        <h2>{visible==='student'?'Create student':'Edit student'}</h2>
         </div>
         <div className="grid">
           <label >

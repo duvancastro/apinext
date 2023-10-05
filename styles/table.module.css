@@ -1,0 +1,5 @@
+.table{
+    flex: 1; 
+    margin-right: 10px;
+    max-width: calc(40% - 10px)!important;
+}

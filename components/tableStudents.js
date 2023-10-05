@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from 'react'
+import Style from '../styles/table.module.css'
 
 const TableStudents = ({setloading ,setVisible}) => {
     const [estudiantes, setEstudiantes] = useState([]);
@@ -43,7 +45,8 @@ const studentDelete=async()=>{
       });
   }, [deleteStudent]);
   return (
-    <table>
+    <div className={Style.table}>
+    <table >
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -68,6 +71,7 @@ const studentDelete=async()=>{
         ))}
       </tbody>
     </table>
+    </div>
   );
 }
 

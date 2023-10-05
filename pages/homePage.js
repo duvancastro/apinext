@@ -7,6 +7,7 @@ import MainScreen from "../components/MainScreen";
 const HomePage = () => {
   const [visible, setVisible] = useState("Home");
   const [loading, setloading] = useState({});
+  const [visibleTable, setVisibleTable] = useState('student')
 
   const verPantalla = (value) => {
     setVisible(value);
@@ -17,11 +18,11 @@ const HomePage = () => {
   }, [visible]);
 
   return (
-    <Layaout setVisible={setVisible} visible={visible}>
-      {visible === "student" && <StudentsForm loading={loading} setloading={setloading} visible={visible} />}
+    <Layaout setVisible={setVisible} visible={visible} visibleTable={visibleTable} setVisibleTable={setVisibleTable}>
+      {visible === "student" && <StudentsForm loading={loading} setloading={setloading} visible={visible} setVisible={setVisible} />}
       {visible === "computer" && <ComputerForm loading={loading} />}
-      {visible === "Home" && <MainScreen setloading={setloading} setVisible={setVisible} />}
-      {visible === "editStudent" && <StudentsForm loading={loading} setloading={setloading} visible={visible} />}
+      {visible === "Home" && <MainScreen setloading={setloading} setVisible={setVisible} visibleTable={visibleTable} visible={visible} />}
+      {visible === "editStudent" && <StudentsForm loading={loading} setloading={setloading} visible={visible} setVisible={setVisible}/>}
     </Layaout>
   );
 };
