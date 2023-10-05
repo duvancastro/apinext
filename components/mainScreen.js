@@ -1,11 +1,10 @@
 import React from 'react'
-import TableStudents from './tableStudents'
-const mainScreen = ({setloading,setVisible}) => {
+import TableStudents from './TableStudents'
+const MainScreen = ({setloading,setVisible}) => {
   return (
     <div>
         <TableStudents setloading={setloading} setVisible={setVisible}/>
     </div>
   )
 }
-
-export default mainScreen
+export default MainScreen

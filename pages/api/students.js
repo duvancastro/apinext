@@ -52,25 +52,25 @@ const {IDnumber}=req.query
         res.status(200).json({message:result.message});
         break;
         case 404:
-          res.status(404).json({ message: `el estudiante no existe ` });
+          res.status(404).json({ message: result.message });
         case 500:
-          res.status(500).json({ error: `${result.message}` });
+          res.status(500).json({ error: result.message });
           break;
           default:
-            res.status(500).json({ error: `${result.message}` });
+            res.status(500).json({ error: result.message });
             break;
     }
   }
 function patchResponse(result,res){
   switch(result.status){
     case 200:
-      res.status(200).json({message:result.message,data:result.data});
+      res.status(200).json({message:result.message});
       break;
-      case 500:
-        res.status(500).json({ error: `${result.message}` });
-        break;
+      case 404:
+        res.status(404).json({ message:result.message });
+
         default:
-          res.status(500).json({ error: `${result.message}` });
+          res.status(500).json({ error: result.message });
           break;
   }
 }

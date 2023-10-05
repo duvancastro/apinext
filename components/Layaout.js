@@ -1,9 +1,6 @@
-import { useState } from "react";
-import Header from "./header";
+
+import Header from "./Header";
 const Layaout = ({ children, setVisible,visible }) => {
-
-
-  
   return (
     <div>
       <Header setVisible={setVisible}visible={visible}/>

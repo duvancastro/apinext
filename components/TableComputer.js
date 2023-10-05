@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
-const TableStudents = ({setloading ,setVisible}) => {
+const TableComputer =({setloading ,setVisible}) => {
     const [estudiantes, setEstudiantes] = useState([]);
     const [deleteStudent, setdeleteStudent] = useState('');
 const edit=(student)=>{
@@ -71,4 +70,4 @@ const studentDelete=async()=>{
   );
 }
 
-export default TableStudents
+export default TableComputer

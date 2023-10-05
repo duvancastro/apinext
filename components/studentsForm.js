@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
 
-const studentsForm = ({loading,setloading}) => {
+const studentsForm = ({loading,setloading,visible,set}) => {
     const [name, setname] = useState(loading.name||'');
   const [lastname, setlastname] = useState(loading.lastName||'');
   const [IDnumber, setIDnumber] = useState(loading.IDnumber||'');
-  async function onSubmit(event) {
+  async function createStudent(event) {
     event.preventDefault();
     const formData = {
       name: name,
@@ -33,6 +33,35 @@ const studentsForm = ({loading,setloading}) => {
           alert(`ERROR EN EL SERVER`)
           break;
       }
+    }
+  async function editStudent(event) {
+    event.preventDefault();
+    const formData = {
+      name: name,
+      lastName: lastname,
+      IDnumber: IDnumber,
+    };
+    console.log(formData);
+    const response = await fetch("/api/students", {
+      method: "PATCH",
+      body: JSON.stringify(formData),
+    });
+  setloading('')
+  setname('')
+  setlastname('')
+  setIDnumber('')
+    switch (response.status) {
+        case 200:
+          alert(`${response.status} ESTUDIANTE ACTUALIZADO CON EXITO`)
+          break;
+        case 404:
+            alert(`${response.status} EL ESTUDIANTE NO EXISTE`)
+          break;
+    
+        default:
+          alert(`${response.status} ERROR EN EL SERVER`)
+          break;
+      }
 
   }
 
@@ -46,9 +75,9 @@ const studentsForm = ({loading,setloading}) => {
   
   return (
     <div>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={(e)=>{visible==='student'? createStudent(e):editStudent(e)}}>
         <div >
-        <h2>Create student</h2>
+        <h2>{visible==='studente'?'Create student':'Edit student'}</h2>
         </div>
         <div className="grid">
           <label >
@@ -91,7 +120,7 @@ const studentsForm = ({loading,setloading}) => {
         />
         <small>Please fill out all fields</small>
 
-        <button type="submit">register student</button>
+        <button type="submit">{visible==='student'?'Register student':'Edit student'}</button>
       </form>
     </div>
   );

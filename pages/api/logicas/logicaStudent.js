@@ -91,9 +91,10 @@ const patchStudent = async (data) => {
   try {
     // Obten una conexión del pool
     const connection = await pool.getConnection();
-    const inf = data;
+    const inf = JSON.parse(data)
+    console.log(inf);
     const existingStudent = await existing(inf.IDnumber);
-    console.log(`existingStudent: ${existingStudent[0]}`);
+    console.log(`existingStudent: ${existingStudent}`);
     if (existingStudent[0].length > 0) {
       const sql = `UPDATE students SET ${Object.entries(inf).reduce(
         (acc, [key, value]) =>
@@ -103,7 +104,7 @@ const patchStudent = async (data) => {
               : `${key} = '${value}'`
             : acc,
         ""
-      )}WHERE IDnumber = ${inf.IDnumber}`;
+      )} WHERE IDnumber = ${inf.IDnumber}`;
 
       console.log(sql);
 
