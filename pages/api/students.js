@@ -79,9 +79,6 @@ function getResponse(result,res){
     case 200:
       res.status(200).json({message:result.message,data:result.data});
       break;
-      case 500:
-        res.status(500).json({ error: `${result.message}` });
-        break;
         default:
           res.status(500).json({ error: `${result.message}` });
           break;
